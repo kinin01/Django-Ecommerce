@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Product,Category
+from .models import Product,Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -30,7 +30,7 @@ def search(request):
 
 
 
-def update_info(request):
+def Update_info(request):
 	if request.user.is_authenticated:
 		current_user = Profile.objects.get(user__id=request.user.id)
 		form = UserInfoForm(request.POST or None, instance=current_user)
@@ -43,18 +43,6 @@ def update_info(request):
 	else:
 		messages.success(request, "You Must Be Logged In To Access That Page!!")
 		return redirect('home')
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -15,9 +15,11 @@ class Profile(models.Model):
 	state = models.CharField(max_length=200, blank=True)
 	zipcode = models.CharField(max_length=200, blank=True)
 	country = models.CharField(max_length=200, blank=True)
+	old_cart = models.CharField(max_length=200, blank=True, null=True)
 
 	def __str__(self):
 		return self.user.username
+
 
 # Create a user Profile by default when user signs up
 def create_profile(sender, instance, created, **kwargs):
@@ -62,6 +64,7 @@ class Product(models.Model):
     image =  models.ImageField(upload_to='uploads/product/')
     is_sale = models.BooleanField(default=False)
     sale_price =  models.DecimalField(default=0, decimal_places=2, max_digits=6)
+    
 
     def __str__(self):
         return self.name
