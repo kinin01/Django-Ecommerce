@@ -1,21 +1,33 @@
 
-
-
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load our environmental variables
+load_dotenv()
+
+
+ENVIRONMENT =os.environ.get('ENVIRONMENT', default='production')
+# Feature Toggle
+
+#DEVELOPER =os.environ.get('DEVELOPER', default='')
+#STAGING = env('STAGING', default='False')
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p7(u7(+o*7%=l87mh9c0=^c3k1ik-w$^=7zlu1v8re9c_a(_@f'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if ENVIRONMENT == 'development':
+    DEBUG = True
+else:
+    DEBUG = False
+
 
 ALLOWED_HOSTS = []
 
@@ -32,9 +44,6 @@ INSTALLED_APPS = [
     'store',
     'cart',
     'payment',
-    
-
-    
 ]
 
 MIDDLEWARE = [
@@ -61,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+
             ],
         },
     },
@@ -70,18 +80,35 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+POSTGRES_LOCALLY = False
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+       DATABASES = {
+            'default': {
+                #'ENGINE': 'django.db.backends.sqlite3',
+                #'NAME': BASE_DIR / 'db.sqlite3',
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': 'railway',
+                'USER': 'postgres',
+                'PASSWORD': os.environ.get('DB_PASSWORD_YO'),
+                'HOST': 'viaduct.proxy.rlwy.net',
+                'PORT': '19978',
+                
+            }
+        }
+else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -100,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
+# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -112,15 +139,17 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = ['STATIC/']
+STATICFILES_DIRS = ['static/']
+
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
