@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
 
-ENVIRONMENT =os.environ.get('ENVIRONMENT', default='production')
+ENVIRONMENT =os.environ['ENVIRONMENT', default='production']
 # Feature Toggle
 
 #DEVELOPER =os.environ.get('DEVELOPER', default='')
