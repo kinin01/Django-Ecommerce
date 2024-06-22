@@ -1,32 +1,25 @@
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load our environmental variables
-load_dotenv()
+# load_dotenv()
 
-
-ENVIRONMENT =os.environ['ENVIRONMENT', default='production']
-# Feature Toggle
-
-#DEVELOPER =os.environ.get('DEVELOPER', default='')
-#STAGING = env('STAGING', default='False')
+# password DB
+DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = 'django-insecure-x4m$gfeda-r+)u05g*bzm%8#_vz&8-wl^3epo45gqi#_eqwvtq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if ENVIRONMENT == 'development':
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = True
 
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
@@ -89,29 +82,19 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-POSTGRES_LOCALLY = True
-if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
-       DATABASES = {
-            'default': {
-                #'ENGINE': 'django.db.backends.sqlite3',
-                #'NAME': BASE_DIR / 'db.sqlite3',
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': 'railway',
-                'USER': 'postgres',
-                'PASSWORD': os.environ['DB_PASSWORD_YO'],
-                'HOST': 'monorail.proxy.rlwy.net',
-                'PORT': '12536',
-                
-            }
-        }
-else:
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': DB_PASSWORD_YO,
+        'HOST': 'viaduct.proxy.rlwy.net',
+        'PORT': '12536',
+        
     }
+}
 
 
 # Password validation
