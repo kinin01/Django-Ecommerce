@@ -29,7 +29,12 @@ else:
     DEBUG = False
 
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+
+ALLOWED_HOSTS = ['django-ecommerce-production-36cf.up.railway.app', 'https://django-ecommerce-production-36cf.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://django-ecommerce-production-36cf.up.railway.app']
+
+
 
 
 # Application definition
@@ -44,6 +49,7 @@ INSTALLED_APPS = [
     'store',
     'cart',
     'payment',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ecom.urls'
@@ -82,7 +89,7 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-POSTGRES_LOCALLY = False
+POSTGRES_LOCALLY = True
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
        DATABASES = {
             'default': {
@@ -92,8 +99,8 @@ if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
                 'NAME': 'railway',
                 'USER': 'postgres',
                 'PASSWORD': os.environ.get('DB_PASSWORD_YO'),
-                'HOST': 'viaduct.proxy.rlwy.net',
-                'PORT': '19978',
+                'HOST': 'monorail.proxy.rlwy.net',
+                'PORT': '12536',
                 
             }
         }
@@ -143,6 +150,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static/']
+
+# White noise static stuff
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 MEDIA_URL = 'media/'
