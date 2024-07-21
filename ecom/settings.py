@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # load_dotenv()
 
 # password DB
-DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
+#DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -21,11 +21,11 @@ SECRET_KEY = 'django-insecure-x4m$gfeda-r+)u05g*bzm%8#_vz&8-wl^3epo45gqi#_eqwvtq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
-ALLOWED_HOSTS = ['django-ecommerce-production-36cf.up.railway.app', 'https://django-ecommerce-production-36cf.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://django-ecommerce-production-36cf.up.railway.app']
+#ALLOWED_HOSTS = ['django-ecommerce-production-36cf.up.railway.app', 'https://django-ecommerce-production-36cf.up.railway.app']
+#CSRF_TRUSTED_ORIGINS = ['https://django-ecommerce-production-36cf.up.railway.app']
 
 
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'cart',
     'payment',
     'whitenoise.runserver_nostatic',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -84,14 +85,14 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': DB_PASSWORD_YO,
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '12536',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': 'railway',
+        #'USER': 'postgres',
+        #'PASSWORD': DB_PASSWORD_YO,
+        #'HOST': 'viaduct.proxy.rlwy.net',
+        #'PORT': '12536',
         
     }
 }
@@ -147,3 +148,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# Add paypal settings
+# Set sandbox to true
+PAYPAL_TEST = True
+
+PAYPAL_RECEIVER_EMAIL = 'business@codemytest.com' # Business Sandbox account
