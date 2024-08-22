@@ -155,4 +155,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Set sandbox to true
 PAYPAL_TEST = True
 
-PAYPAL_RECEIVER_EMAIL = 'business@codemytest.com' # Business Sandbox account
+PAYPAL_RECEIVER_EMAIL = 'elder@gmail.com' # Business Sandbox account
