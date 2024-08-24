@@ -22,7 +22,10 @@ SECRET_KEY = 'django-insecure-x4m$gfeda-r+)u05g*bzm%8#_vz&8-wl^3epo45gqi#_eqwvtq
 DEBUG = True
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*','4d3c-77-101-231-185.ngrok-free.app' ]
+#CSRF_TRUSTED_ORIGINS = [' https://4d3c-77-101-231-185.ngrok-free.app', 'https://4d3c-77-101-231-185.ngrok-free.app -> http://localhost:8000'   ]
+CSRF_TRUSTED_ORIGINS = ['https://4d3c-77-101-231-185.ngrok-free.app']
+
 
 #ALLOWED_HOSTS = ['django-ecommerce-production-36cf.up.railway.app', 'https://django-ecommerce-production-36cf.up.railway.app']
 #CSRF_TRUSTED_ORIGINS = ['https://django-ecommerce-production-36cf.up.railway.app']
